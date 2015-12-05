@@ -1,3 +1,4 @@
+AchieveConcernListAction	获得关注的成就列表
 AchieveDefaultImageAction	获得成就的默认图片数组
 AchieveDetailsAction	成就详情
 AchieveListAction	不同条件查询出的成就列表
@@ -37,5 +38,6 @@ UserAchieveListAction	用户获得的成就列表
 UserCommentListAction	评论消息列表
 UserInfoAction	用户的个人资料
 UserLoginAction	登录
+UserMeetAction	获得指定用户与自己的共同点等相关信息
 UserPostListAction	用户的帖子
 UserPraiseListAction	用户的点赞信息

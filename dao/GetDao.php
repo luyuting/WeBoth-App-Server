@@ -11,7 +11,7 @@
 			
 			$sql = "insert into tb_get(getAchieve, getUser, isGet, getTime) values($achieveId, '$userId', true, now())";
 			if($this -> execute($sql) <= 0) {
-				$get_sql = "update tb_get set isGet = true where getAchieve = $achieveId and getUser = '$userId'";
+				$get_sql = "update tb_get set isGet = true, getTime = now() where getAchieve = $achieveId and getUser = '$userId'";
 				if($this -> execute($get_sql) <= 0)
 					return 0;
 			}
@@ -25,7 +25,7 @@
 		}
 		
 		public function getCompleteList($achieveId, $userId) {
-			$sql = "select userName, userSex, userSchool, userGrade, userImage, getUser, getTime from tb_user, tb_get where userId =
+			$sql = "select userName, userSex, userSchool, userGrade, userImage,userCredit, getUser, getTime from tb_user, tb_get where userId =
 				getUser and getAchieve = $achieveId and isGet = true order by getTime asc";
 			$list = json_decode($this -> query($sql)) -> resultArray; 
 			for($i = 0; $i < count($list); $i ++) {
@@ -53,7 +53,7 @@
 		}
 		
 		public function getMatchUser($targetUser, $userId) {
-			$sql = "select userName, userSex, userSchool, userGrade, userImage, getUser from tb_user where userId = '$targetUser'";
+			$sql = "select userId, userName, userSex, userSchool, userGrade, userImage, userCredit from tb_user where userId = '$targetUser'";
 			$match = json_decode($this -> query($sql)) -> resultArray[0];
 			$match -> commonList = $this -> getCommon($targetUser, $userId);
 			return $match;

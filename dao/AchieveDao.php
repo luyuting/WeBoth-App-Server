@@ -31,14 +31,16 @@
 		}
 		
 		/**
-		*	用户获得的成就
+		*	用户获得或关注的成就
 		*	@Param $userId
 		*	@Param $getTime	上一次查询用户已经完成的成就的最后一条显示的完成时间，如果是第一次加载则为当前时间
+		*	@Param $isConcern( default false) 是否返回关注列表，或已经获得的成就列表，默认为后者
 		*	@Return 用户成就列表，分页查询，15条
 		*/
-		public function getAchieveByUser($userId, $getTime) {
+		public function getAchieveByUser($userId, $getTime, $isConcern = false) {
+			$where_condition = $isConcern? "true": "g.isGet = true";
 			$sql = "select u.userName, u.userSchool, u.userGrade, a.*, g.* from tb_user u, tb_achieve a, tb_get g where a.achieveId = g.getAchieve
-				and g.getUser = '$userId' and u.userId = a.achieveUser and g.getTime < '$getTime' order by g.getTime desc limit 0, 15";
+				and g.getUser = '$userId' and u.userId = a.achieveUser and $where_condition and g.getTime < '$getTime' order by g.getTime desc limit 0, 15";
 			return $this -> achieve(null, $sql);
 		}
 		
@@ -205,5 +207,6 @@
 			
 			return json_encode($result);
 		}
+
 	}
 ?>
