@@ -47,7 +47,7 @@
 			return $this -> query($sql);
 		}
 		
-		public function getCount() {
+		public function getCount($userId) {
 			$sql = "select count(*) from tb_get where isGet = true and getUser = '$userId'";
 			return $this -> getField($sql);
 		}

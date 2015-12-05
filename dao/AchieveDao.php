@@ -37,7 +37,7 @@
 		*	@Return 用户成就列表，分页查询，15条
 		*/
 		public function getAchieveByUser($userId, $getTime) {
-			$sql = "select u.userName, u.userSchool, u.userGrade, a.*, g.* from tb_user u, tb_achieve a, tb_get g, where a.achieveId = g.getAchieve
+			$sql = "select u.userName, u.userSchool, u.userGrade, a.*, g.* from tb_user u, tb_achieve a, tb_get g where a.achieveId = g.getAchieve
 				and g.getUser = '$userId' and u.userId = a.achieveUser and g.getTime < '$getTime' order by g.getTime desc limit 0, 15";
 			return $this -> achieve(null, $sql);
 		}

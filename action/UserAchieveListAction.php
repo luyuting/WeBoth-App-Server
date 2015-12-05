@@ -1,6 +1,5 @@
 <?php
 	require('../dao/AchieveDao.php');
-	require('../dao/GetDao.php');
 	
 	date_default_timezone_set('PRC');
 	
