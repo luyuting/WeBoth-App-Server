@@ -20,29 +20,33 @@
 			return $this -> query($sql);
 		}
 		
-		public function searchPostTopic($topicName, $isExact = false) {
-			if(!$isExact) {
-				$topicName = '%' . '%';
-				$sql = "select postTopic topicName, count(*) topicNum from tb_post where postTopic like '$topicName' and postTopic <> '' group by(postTopic) 
-					order by topicNum desc";
-				return $this -> query($sql);
-			}
-			else {
-				$sql = "select userName, userSex, userImage, i.* from tb_user, tb_post i where userId = '$userId' and postTopic = '$topicName' and 
-					postTopic <> '' and userId = postUser order by postTime desc limit 0, 20";
+		public function searchPostTopic($userId, $topicName, $isExact = false) {
+			if($isExact)
+				return $this -> searchPostTopicExactly($userId, $topicName);
+			else
+				return $this -> searchPostTopicRoughly($topicName);
+		}
+		
+		private function searchPostTopicRoughly($topicName) {
+			$sql = "select postTopic topicName, count(*) topicNum from tb_post where postTopic like '%$topicName%' and postTopic <> '' group by(postTopic) 
+				order by topicNum desc";
+			return $this -> query($sql);
+		}
+		
+		private function searchPostTopicExactly($userId, $topicName) {
+			$sql = "select userName, userSex, userImage, i.* from tb_user, tb_post i where postTopic = '$topicName' and postTopic <> '' and userId = postUser 
+				order by postTime desc limit 0, 20";
 					
-				$obj_arr = json_decode($this -> query($sql)) -> resultArray;
-				for($i = 0; $i < count($obj_arr); $i ++){
-					$postId = $obj_arr[$i] -> postId;
-					$count_praise_sql = "select count(*) from tb_praise where praiseUser = '$userId' and praisePost = '$postId'";
-					$hasPraised = false;
-					if($this -> getField($count_praise_sql) > 0)
-						$hasPraised = true;
-					$obj_arr[$i] -> hasPraised = $hasPraised;
-				}
-				return json_encode(array('resultArray' => $obj_arr));
+			$obj_arr = json_decode($this -> query($sql)) -> resultArray;
+			for($i = 0; $i < count($obj_arr); $i ++){
+				$postId = $obj_arr[$i] -> postId;
+				$count_praise_sql = "select count(*) from tb_praise where praiseUser = '$userId' and praisePost = '$postId'";
+				$hasPraised = false;
+				if($this -> getField($count_praise_sql) > 0)
+					$hasPraised = true;
+				$obj_arr[$i] -> hasPraised = $hasPraised;
 			}
-			
+			return json_encode(array('resultArray' => $obj_arr));
 		}
 		
 		public function searchAchieveTopic($userId, $topicName, $isExact = false) {

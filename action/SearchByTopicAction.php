@@ -15,7 +15,7 @@
 	$topicDao = new TopicDao();
 	
 	$topic = (object) array();
-	$topic -> postTopic = json_decode($topicDao -> searchPostTopic($topicName, $isExact)) -> resultArray;
+	$topic -> postTopic = json_decode($topicDao -> searchPostTopic($userId, $topicName, $isExact)) -> resultArray;
 	$topic -> achieveTopic = json_decode($topicDao -> searchAchieveTopic($userId, $topicName, $isExact)) -> resultArray;
 	
 	foreach($topic -> achieveTopic as $index => $achieve) {
