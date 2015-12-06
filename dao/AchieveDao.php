@@ -22,7 +22,11 @@
 				$get_sql = "insert into tb_get(getAchieve, getUser, isGet, getTime) values($id, '$userId', $isGet, now())";
 				$this -> execute($get_sql);
 				
-				$score_sql = "update tb_user set userCredit = userCredit + 1 where userId = '$userId'";
+				$score  = 1;
+				if((boolean)$isGet)
+					$score += 3;
+				
+				$score_sql = "update tb_user set userCredit = userCredit + $score where userId = '$userId'";
 				$this -> execute($score_sql);
 				
 				return 1;
@@ -42,6 +46,20 @@
 			$sql = "select u.userName, u.userSchool, u.userGrade, a.*, g.* from tb_user u, tb_achieve a, tb_get g where a.achieveId = g.getAchieve
 				and g.getUser = '$userId' and u.userId = a.achieveUser and $where_condition and g.getTime < '$getTime' order by g.getTime desc limit 0, 15";
 			return $this -> achieve(null, $sql);
+		}
+		
+		/**
+		*	用户关注的成就的相关动态（吐槽或完成）
+		*	@Param $userId
+		*	@Param $time
+		*	@Return 关注的成就的动态列表，按时间降序排列
+		*/
+		public function getAchieveNewsList($userId, $time) {
+			$sql = "select u.userName, u.userSex, u.userImage, t.*, a.achieveTitle, a.achieveImage from ((select g.getId id, g.getAchieve achieveId, 'get' type, 
+				g.getUser user, g.getTime time from tb_get g where g.isGet = true) union( select m.mesgId id, m.mesgAchieve achieveId, 'message' type,m.mesgUser user, 
+				m.mesgTime time from tb_message m))t, tb_achieve a, tb_user u where a.achieveId = t.achieveId and u.userId = t.user and t.achieveId in (select getAchieve
+				from tb_get where getUser = '$userId') and t.time < '$time' order by t.time desc limit 0, 15";
+			return $this -> query($sql);
 		}
 		
 		/**

@@ -11,8 +11,7 @@
 		exit;
 	}
 	
-	$match_list_json = $getDao -> match($userId);
-	$match_list = json_decode($match_list_json);
+	$match_list = json_decode($getDao -> match($userId)) -> resultArray;
 	
 	if(count($match_list) == 0) {
 		echo json_encode(array('mesg' => '未找到任何与您有相同成就的人，匹配不成功', 'result' => false));

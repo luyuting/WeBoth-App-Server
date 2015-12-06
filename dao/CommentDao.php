@@ -61,7 +61,7 @@
 		}
 		
 		public function setAllRead($userId) {
-			$sql = "update tb_reply set isRead = true where replyUser = '$userId' and isRead = false";
+			$sql = "update tb_reply set isRead = true where replyTarget = '$userId' and isRead = false";
 			return $this -> execute($sql);
 		}
 	}

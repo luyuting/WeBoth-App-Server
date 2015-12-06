@@ -2,8 +2,9 @@
 	require_once('BaseDao.php');
 	class PostDao extends BaseDao {
 		
-		public function userPostCount($userId) {
-			$sql="select count(*) from tb_post where postUser = '$userId'";
+		public function userPostCount($userId, $isUser) {
+			$where_condition = $isUser? "true": "isAnonymity = false"; 
+			$sql="select count(*) from tb_post where postUser = '$userId' and $where_condition";
 			return $this -> getField($sql);
 		}
 		
@@ -25,8 +26,9 @@
 		}
 		
 		public function userPostList($userId, $visitUser, $postTime) {
+			$where_condition = $userId == $visitUser? "true": "isAnonymity = false";
 			$sql="select userName, userSex, userImage, i.* from tb_user, tb_post i where userId = '$userId' and userId = postUser and postTime < '$postTime' 
-				order by postTime desc limit 0, 15";
+				and $where_condition order by postTime desc limit 0, 15";
 			return $this -> postSelect($visitUser, $sql);
 		}
 		

@@ -12,7 +12,7 @@
 		$achieveImage = $imageUpload->setAchieveImage();
 	$achieveTitle = $_REQUEST['achieveTitle'];
 	$achieveContent = $_REQUEST['achieveContent'];
-	$isGet = (boolean)$_REQUEST['isGet'];
+	$isGet = (int)$_REQUEST['isGet'];	//boolean
 	
 	$achieveDao = new AchieveDao();
 	

@@ -2,6 +2,7 @@ AchieveConcernListAction	获得关注的成就列表
 AchieveDefaultImageAction	获得成就的默认图片数组
 AchieveDetailsAction	成就详情
 AchieveListAction	不同条件查询出的成就列表
+AchieveNewsListAction	用户所关注的成就的相关动态
 AchieveSearchAction	模糊查询成就
 AllTagsAction	查询所有的帖子标签，按帖子数降序排列
 CancelConcernAction	取消对用户的关注

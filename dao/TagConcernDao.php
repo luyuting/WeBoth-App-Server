@@ -8,7 +8,7 @@
 		}
 		
 		public function cancelTagConcern($tagName, $userId) {
-			$sql = "delete from tb_tag_concern where tagName = '$tagName' and tagUser = 'tagUser'";
+			$sql = "delete from tb_tag_concern where tagName = '$tagName' and tagUser = '$userId'";
 			return $this -> execute($sql);
 		}
 		
