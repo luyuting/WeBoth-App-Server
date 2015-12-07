@@ -24,6 +24,16 @@
 			return 1;
 		}
 		
+		public function cancelCompleteAchieve($achieveId, $userId) {
+			$sql = "delete from tb_get where getAchieve = $achieveId and getUser = '$userId'";
+			if($this -> execute($sql) > 0) {
+				$score_sql = "update tb_user set userCredit = userCredit - 3 where userId = '$userId'";
+				$this -> execute($sql);
+				return 1;
+			}
+			return 0;
+		}
+		
 		public function getCompleteList($achieveId, $userId) {
 			$sql = "select userName, userSex, userSchool, userGrade, userImage,userCredit, getUser, getTime from tb_user, tb_get where userId =
 				getUser and getAchieve = $achieveId and isGet = true order by getTime asc";

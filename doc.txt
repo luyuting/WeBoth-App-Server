@@ -5,6 +5,7 @@ AchieveListAction	不同条件查询出的成就列表
 AchieveNewsListAction	用户所关注的成就的相关动态
 AchieveSearchAction	模糊查询成就
 AllTagsAction	查询所有的帖子标签，按帖子数降序排列
+CancelCompleteAchieveAction	取消完成的成就
 CancelConcernAction	取消对用户的关注
 CancelPraiseAction	取消对帖子的点赞
 CancelTagConcernAction	取消对标签（频道）的关注
@@ -20,7 +21,7 @@ RegisterAction	注册
 SearchByTagAction	根据标签查找帖子
 SearchByTopicAction	查询话题和成就（模糊查询）
 SearchHotTopicAction	查询热门话题以及热门成就
-SetAchieveAction	获得成就
+SetAchieveAction	发布成就，可在发布的同时点亮该成就
 SetAchieveConcernAction	关注该成就，已经获得成就的用户默认关注了该成就
 SetCommentAction	评论
 SetCommentAllReadAction	设置所有未读评论消息为已读
