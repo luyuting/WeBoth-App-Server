@@ -7,7 +7,7 @@
 	date_default_timezone_set('PRC');
 	
 	$userId = $_REQUEST['userId'];
-	$time = empty($_REQUEST['time'])? Date("Y-m-d H:i:s"): $_REQUEST['postTime'];
+	$time = empty($_REQUEST['time'])? Date("Y-m-d H:i:s"): $_REQUEST['time'];
 	
 	$acheiveDao = new AchieveDao();
 	

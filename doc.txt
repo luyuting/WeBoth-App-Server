@@ -12,6 +12,7 @@ CancelTagConcernAction	取消对标签（频道）的关注
 CompleteAchieveAction	完成某个成就
 ConcernListAction	获得用户的关注列表
 MatchAction	返回匹配的用户信息，匹配失败给出错误原因
+PageDefaultImageAction	获得首页图片的地址列表
 PostCommentListAction	返回帖子的所有评论，包含帖子本身
 PostConcernListAction	获得所有的关注的帖子
 PostDeleteAction	删除帖子

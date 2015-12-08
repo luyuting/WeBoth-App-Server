@@ -23,7 +23,7 @@
 	else {
 		if($achieveId != 0) {
 			$messageDao = new MessageDao();
-			$messageDao -> setMessage($userId, $achieveId, null, $isAnonymity, $id);
+			$messageDao -> setMessage($postUser, $achieveId, null, $isAnonymity, $id);
 		}
 		echo json_encode(array('mesg' => 'success', 'result' => true));
 	}
