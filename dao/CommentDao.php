@@ -44,14 +44,14 @@
 			$sql = "select k.*, t.userName targetName from (select u.userName, u.userImage, u.userSex, r.replyId, i.* , postContent , 
 				postImage from tb_reply r, tb_user u, tb_comment i, tb_post where r.replyTarget = '$userId' and 
 				u.userId = i.commentUser and i.commentPost = postId and r.isRead = false and r.replyComment = i.commentId 
-				order by i.commentTime desc) k left outer join tb_user t on t.userId = k.commentTarget ";
+				) k left outer join tb_user t on t.userId = k.commentTarget order by commentTime desc";
 			return $this -> query($sql);
 		}
 		
 		public function postCommentList($postId) {
 			$sql = "select k.*, t.userName targetName from (select u.userName, u.userImage, u.userSex, i.* from tb_user u, 
-				tb_comment i where i.commentPost = $postId and u.userId = i.commentUser order by i.commentTime asc) k left outer join 
-				tb_user t on t.userId = k.commentTarget ";
+				tb_comment i where i.commentPost = $postId and u.userId = i.commentUser) k left outer join 
+				tb_user t on t.userId = k.commentTarget order by commentTime asc";
 			return $this -> query($sql);
 		}
 		
