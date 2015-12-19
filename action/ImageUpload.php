@@ -17,7 +17,7 @@
 		*	接收来自App（Android）的图片，上传名不同（非数组）
 		*	@Return: 上传的路径，多张图片用英文逗号分隔
 		*/
-		private function setImage($file_dir) {
+		protected function setImage($file_dir) {
 			
 			date_default_timezone_set('PRC');
 			
@@ -26,7 +26,7 @@
 			$php_path = dirname(__FILE__) . '/';
 			$save_path = $php_path . $file_dir;
 			$save_path = realpath($save_path) . '/';
-				
+		
 			$file_all_path = null;
 			foreach($_FILES as $file_key => $file_value) {
 				if(!empty($file_value['error']))
