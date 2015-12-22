@@ -41,10 +41,10 @@
 		}
 		
 		public function userCommentList($userId) {
-			$sql = "select k.*, t.userName targetName from (select u.userName, u.userImage, u.userSex, r.replyId, i.* , postContent , 
-				postImage from tb_reply r, tb_user u, tb_comment i, tb_post where r.replyTarget = '$userId' and 
-				u.userId = i.commentUser and i.commentPost = postId and r.isRead = false and r.replyComment = i.commentId 
-				) k left outer join tb_user t on t.userId = k.commentTarget order by commentTime desc";
+			$sql = "select k.*, t.userName targetName from (select u.userName, u.userImage, u.userSex, r.replyId, i.* , postUser, p.userName postUserName, 
+				p.userSex postUserSex, p.userImage postUserImage, postContent, postImage from tb_reply r, tb_user u, tb_user p, tb_comment i, tb_post where 
+				r.replyTarget = '$userId' and postUser =  p.userId and u.userId = i.commentUser and i.commentPost = postId and r.isRead = false and 
+				r.replyComment = i.commentId) k left outer join tb_user t on t.userId = k.commentTarget order by commentTime desc";
 			return $this -> query($sql);
 		}
 		
